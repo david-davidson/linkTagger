@@ -11,5 +11,5 @@ linkTagger knows:
 * To introduce GLT with "&", not "?", when it follows preexisting link parameters that are already set off by a question mark
 * To add target="_blank"&mdash;but only after asking!
 
-That is, it&rsquo;ll tag, say, this: &lsaquo;a <span>h</span>ref=&quot;http://www.test.com#contact?p=home&quot;&rsaquo;
-Like this: &lsaquo;a <span>h</span>ref=&quot;http://www.test.com?p=home&utm_source=var1&utm_medium=var2&utm_content=var3&utm_campaign=var4#contact&quot; target=&quot;_blank&quot;&rsaquo;
+That is, it&rsquo;ll tag, say, this: &lsaquo;a href=&quot;http://ww<span>w</span>.test.com#contact?p=home&quot;&rsaquo;
+Like this: &lsaquo;a href=&quot;http://ww<span>w</span>.test.com?p=home&utm_source=var1&utm_medium=var2&utm_content=var3&utm_campaign=var4#contact&quot; target=&quot;_blank&quot;&rsaquo;
