@@ -15,4 +15,4 @@ That is, it&rsquo;ll tag, say, this:
 `<a href="http://www.test.com#contact?p=home">`
 
 Like this: 
-`<a href="http://www.test.com?p=home&utm_source=var1&utm_medium=var2&utm_content=var3&utm_campaign=var4#contact" target="_blank&quot;>`
+`<a href="http://www.test.com?p=home&utm_source=var1&utm_medium=var2&utm_content=var3&utm_campaign=var4#contact" target="_blank">`
