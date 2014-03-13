@@ -12,7 +12,7 @@ linkTagger knows:
 * To add target="_blank"&mdash;but only after asking!
 
 That is, it&rsquo;ll tag, say, this: 
-`<a href="http://www.test.com#contact?p=home">`
+`<a href="http://www.test.com?p=home&utm_source=1&utm_medium=2&utm_content=3&utm_campaign=4#contact" target="_blank">`
 
 Like this: 
 `<a href="http://www.test.com?p=home&utm_source=var1&utm_medium=var2&utm_content=var3&utm_campaign=var4#contact" target="_blank">`
