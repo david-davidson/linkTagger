@@ -21,10 +21,10 @@ GLT=${GLT//\&/\\&} # Escape the ampersands
 GLT=${GLT//\./\\.} # Escape the periods
 ALTGLT=${GLT//\?/\\&} # Create alternative version that starts with &, not ?
 find $MYPATH -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\(\?[^\"]*\)\"/href=\"\1\3\2\"/g" {} + # If a previously tagged link puts an ID before the GLT, reverse the two
-find $MYPATH -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\"/href=\"\1$GLT\2\"/g" {} + # Tag all the links that don't include "?"; if there's a section ID, put the GLT before it.
-find $MYPATH -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # "Comment out" previously tagged links. (Sed doesn't support negative lookaheads, so we can't do something like [ href="([^?#"]*)\?(?!.*?utm_).*?([^#]*?)*?" ]; instead, we add [and later remove] a space after "href=", which addition hides matching links from the next regex. [If the undo somehow fails, browsers still render links with a space after "href=".])
-find $MYPATH -type f -exec \sed -i "s/href=\"\([^#\"]*\)\(#[^\"]*\)*\"/href=\"\1$ALTGLT\2\"/g" {} + # Tag links that (1) include "?" and (2) don't have any GLT; introduce the GLT with "&", not "?".
-find $MYPATH -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # Remove that space after "href=" in previously tagged links.
+find $MYPATH -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\"/href=\"\1$GLT\2\"/g" {} + # Tag all the links that don't include "?"; if there's a section ID, put the GLT before it
+find $MYPATH -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # "Comment out" previously tagged links. (Sed doesn't support negative lookaheads, so we can't do something like [ href="([^?#"]*)\?(?!.*?utm_).*?([^#]*?)*?" ]. Instead, we add [and later remove] a space after "href=", which addition hides matching links from the next regex. [If the undo somehow fails, browsers still render links with a space after "href=".])
+find $MYPATH -type f -exec \sed -i "s/href=\"\([^#\"]*\)\(#[^\"]*\)*\"/href=\"\1$ALTGLT\2\"/g" {} + # Tag links that (1) include "?" and (2) don't have any GLT; introduce the GLT with "&", not "?"
+find $MYPATH -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # Remove that space after "href=" in previously tagged links
 if [ "$ADDTARGETBLANK" = "y" ]
 	then
 		find $MYPATH -type f -exec \sed -i "s/href=\"\([^\"]*\)\">/href=\"\1\" target=\"_blank\">/g" {} +
