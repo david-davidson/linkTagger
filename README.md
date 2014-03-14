@@ -8,8 +8,8 @@ This bash script makes tagging links faster&mdash;way faster. Just drop the file
 linkTagger knows:
 * To add GLT before section IDs, not after
 * To fix previously tagged links that put a section ID before the GLT
-* Not to add new tagging to links that are already taggd
-* To introduce GLT with &ldquo;&&rdquo;, not &rdquo;?&rdquo;, when it follows link parameters that are already set off by a question mark
+* Not to add new tagging to links that are already tagged
+* To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows link parameters that are already set off by a question&nbsp;mark
 * To add target="_blank"&mdash;but only after asking!
 
 That is, it&rsquo;ll tag, say, this: 
