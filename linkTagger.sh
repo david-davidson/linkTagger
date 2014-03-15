@@ -1,6 +1,10 @@
 #!/bin/bash
-# If you encounter an error the first time you run the script, you probably need to convert the line endings. Cd into the directory where the script lives, and run this command: sed -i 's/\r//g' linkTagger.sh
-MYPATH="/cygdrive/c/users/david.davidson/desktop/filesToTag" # The script's replacement commands are recursive--they tag not only all the files in the current working directory, but all the files in all the *folders* in there, too. For that reason, the recommended behavior is conservative: replace MYPATH with the single directory where you'd like to tag files (not the desktop!), and put files there when you want to tag them. If you'd like to run the script in the current working directory, though, you can set MYPATH to "."
+
+# Two-step setup:
+# 1. Change MYPATH to the folder where you'd like to tag files. (The script's replacement commands are recursive--they tag not only all the files in the chosen directory, but also all the files in all the *folders* in there, too. Of course, if you'd like to run the script in the current working directory, you can set MYPATH to ".", but remember not to run it in, say, the desktop!)
+# 2. If you encounter an error the first time you run the script, you probably need to convert the line endings. Cd into the directory where the script lives, and run this command: "sed -i 's/\r//g' linkTagger.sh"
+
+MYPATH="/cygdrive/c/users/david.davidson/desktop/filesToTag"
 echo "Paste in existing GLT, write new GLT, or just check link formatting?
 Enter e for existing, n for new, or f for formatting:"
 read MODE
