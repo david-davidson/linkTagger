@@ -18,8 +18,9 @@ CAMPAIGN="utm_campaign=$CAMPAIGN"
 GLT="$SOURCE&$MEDIUM&$CONTENT&$CAMPAIGN"
 GLT=${GLT,,} # lowercase the string
 GLT=${GLT//\&/\\&} # Escape the ampersands
-GLT=${GLT//\./\\.} # Escape the periods
+GLT=${GLT//\//\\/} # Escape slashes
 GLT=${GLT// /} # Remove spaces, just in case
+echo "$GLT"
 find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\(?[^\"]*\)\"/href=\"\1\3\2\"/g" {} + # Move all section IDs to the end of their links
 find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\"/href=\"\1?$GLT\2\"/g" {} + # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, leave it at the end
 find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? Sed doesn't support negative lookahead, so we simply "comment out" tagged links by adding a space after href=, which we'll later remove...
