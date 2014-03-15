@@ -1,6 +1,6 @@
 #!/bin/bash
 # If you encounter an error the first time you run the script, you may need to convert the line breaks. Cd into the directory where the script lives, and run this command: sed -i 's/\r//g' linkTagger.sh
-MYPATH="/cygdrive/c/users/david.davidson/desktop/Another new folder" # The script's replacement commands are recursive--they tag not only all the files in the current working directory, but all the files in all the *folders* in there, too. For that reason, the recommended behavior is conservative: replace MYPATH with the single directory where you'd like to tag files (not the desktop!), and put files there when you want to tag them. If you'd like to run the script in the current working directory, though, you can set MYPATH to "."
+MYPATH="/cygdrive/c/users/david.davidson/desktop/linkTagger" # The script's replacement commands are recursive--they tag not only all the files in the current working directory, but all the files in all the *folders* in there, too. For that reason, the recommended behavior is conservative: replace MYPATH with the single directory where you'd like to tag files (not the desktop!), and put files there when you want to tag them. If you'd like to run the script in the current working directory, though, you can set MYPATH to "."
 echo "Enter the source:"
 read SOURCE
 echo "Enter the medium:"
@@ -27,6 +27,6 @@ find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^#\"]*\)\(#[^\"]*\)*\"/href=\"
 find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # ...and remove that space after "href="
 if [ "$ADDTARGETBLANK" = "y" ]
 	then
-		find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*\)\">/href=\"\1\" target=\"_blank\">/g" {} +
+		find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*\)\">/href=\"\1\" target=\"_blank\">/g" {} + # Append target="_blank"
 fi
 echo "Done! Click back to your file(s), and reload if prompted."
