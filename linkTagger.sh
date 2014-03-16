@@ -6,7 +6,7 @@
 # Oh, and you might as well set up an alias to run this: "alias glt='absolute/path/to/script/linkTagger.sh'" or something
 
 MYPATH="/cygdrive/c/users/david.davidson/desktop/filesToTag"
-printf "Enter n to create new GLT, or e to paste in existing GLT:\n" # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
+printf "Enter n to build new GLT, or e to paste in existing GLT:\n" # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
 read MODE
 if [[ "$MODE" = "e" || "$MODE" = "E" ]]
 	then
@@ -39,7 +39,7 @@ find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\(?[^\"]*
 if [[ "$MODE" = "e" || "$MODE" = "E" || "$MODE" = "n" || "$MODE" = "N" ]]
 	then
 	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^?#\"]*\)\(#[^\"]*\)*\"/href=\"\1?$GLT\2\"/g" {} + # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
-	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? Sed doesn't support negative lookahead, so we'll "comment out" tagged links by adding a space after href=, which we'll later remove...
+	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? sed doesn't support negative lookahead, so we'll "comment out" tagged links by adding a space after href=, which we'll later remove...
 	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^#\"]*\)\(#[^\"]*\)*\"/href=\"\1\&$GLT\2\"/g" {} + # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
 	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # ...and remove that space after "href="
 fi
