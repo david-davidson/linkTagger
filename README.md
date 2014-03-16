@@ -3,13 +3,14 @@ linkTagger.sh
 
 ####Automation tool for Google link tagging
 
-This shell script makes tagging links faster&mdash;way faster. It uses sed, the regular expression&ndash;powered stream editor, to tag all your links in all your files at once. Just drop the files or folders you want to tag into the folder of your choice, and then run linkTagger.sh from your Linux or Cygwin terminal. The script will prompt you for GLT parameters (or preexisting GLT) and take it from there!
+This shell script makes tagging links faster&mdash;way faster. It uses sed, the regular expression&ndash;powered stream editor, to tag all your links in all your files at once. Just drop the files or directories you want to tag into the directory of your choice, and then run linkTagger.sh from your Linux or Cygwin terminal. The script will prompt you for GLT parameters (or preexisting GLT) and take it from there!
 
 linkTagger knows:
 * To add GLT before section IDs, not after
 * To fix previously tagged links that put a section ID in the middle of the URL, not at the end
-* Not to tag links that are already tagged
 * To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows non-GLT parameters that are already set off by a question&nbsp;mark
+* Not to tag links that are already tagged
+* Not to tag nonanchor links (like those to a stylesheet or a typeface&nbsp;provider)
 * To add target="_blank"&mdash;but only after asking!
 
 That is, it&rsquo;ll tag, say, this: 
