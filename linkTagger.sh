@@ -38,9 +38,9 @@ find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^?#\"]*\)\(#[^\"]*\)*
 if [[ "$TAG" = "true" ]]
 	then
 	printf "\nTagging links ."
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*http[^?#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2?$GLT\3\"/g" {} + ; printf "." # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
+	find "$MYPATH" -type f -exec \sed -i "s/<a\([^\"]*\)href=\"\([^\"]*\?http[^?#\"]*\?\)\(#[^\"]*\?\)*\?\"/<a\1href=\"\2?$GLT\3\"/g" {} + ; printf "." # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
 	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? sed doesn't support negative lookahead, so we'll just "comment out" tagged links (identified by "utm_") by adding a space after href=, which we'll later remove...
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*http[^#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2\&$GLT\3\"/g" {} + ; printf "." # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
+	find "$MYPATH" -type f -exec \sed -i "s/<a\([^\"]*\)href=\"\([^\"]*http[^#\"]*\)\(#[^\"]*\)*\"/<a\1href=\"\2\&$GLT\3\"/g" {} + ; printf "." # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
 	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # ...and remove that space after "href="
 fi
 if [[ "$ADDTARGETBLANK" = "y" || "$ADDTARGETBLANK" = "Y" ]]
