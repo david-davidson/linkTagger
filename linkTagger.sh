@@ -37,15 +37,15 @@ printf "\nChecking link structure ..."
 find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^?#\"]*\)\(#[^\"]*\)*\(?[^\"]*\)\"/a\1href=\"\2\4\3\"/g" {} + # Move all section IDs to the end of their links
 if [[ "$TAG" = "true" ]]
 	then
-	printf "\nTagging links "
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^?#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2?$GLT\3\"/g" {} + ; printf "." # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
+	printf "\nTagging links ."
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*http[^?#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2?$GLT\3\"/g" {} + ; printf "." # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
 	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? sed doesn't support negative lookahead, so we'll just "comment out" tagged links (identified by "utm_") by adding a space after href=, which we'll later remove...
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2\&$GLT\3\"/g" {} + ; printf "." # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
-	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + ; printf "." # ...and remove that space after "href="
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*http[^#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2\&$GLT\3\"/g" {} + ; printf "." # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
+	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # ...and remove that space after "href="
 fi
 if [[ "$ADDTARGETBLANK" = "y" || "$ADDTARGETBLANK" = "Y" ]]
 	then
 	printf "\nAdding target=\"_blank\" ...\n"
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^\"]*\)\">/a\1href=\"\2\" target=\"_blank\">/g" {} + # Append target="_blank"
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*http[^\"]*\)\">/a\1href=\"\2\" target=\"_blank\">/g" {} + # Append target="_blank"
 fi
 printf "\nDone! Click back to your file(s), and reload if prompted.\n"
