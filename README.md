@@ -10,7 +10,7 @@ This shell script makes link tagging faster&mdash;way faster. It uses sed, the r
 * To fix previously tagged links that put a section ID anywhere but the very end of the&nbsp;URL
 * To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows other link parameters that are already set off by a question&nbsp;mark
 * Not to tag links that are already tagged
-* Not to tag nonanchor links, like those to a stylesheet or a typeface&nbsp;provider
+* Not to tag unanchored links, like those to a stylesheet or a typeface&nbsp;provider
 * Not to tag relative links, like `<a href="#contact">`
 
 It&rsquo;ll tag, say, this: 
