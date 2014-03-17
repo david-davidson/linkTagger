@@ -6,20 +6,20 @@
 # Oh, and you might as well set up an alias to run this: "alias glt='absolute/path/to/script/linkTagger.sh'" or something
 
 MYPATH="/cygdrive/c/users/david.davidson/desktop/filesToTag"
-printf "Enter n to build new GLT, or e to paste in existing GLT:\n" # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
+printf "\nType n to build new GLT, or e to paste in existing GLT: " # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
 read MODE
 if [[ "$MODE" = "e" || "$MODE" = "E" ]]
 	then
 	TAG="true"
-	echo "Right-click and paste in your GLT:" ; read GLT
+	printf "\nRight-click and paste in your GLT: " ; read GLT
 	GLT=${GLT/\?/} # Get rid of the leading question mark (if there is one), because we might occasionally need to lead with an ampersand
 elif [[ "$MODE" = "n" || "$MODE" = "N" ]]
 	then
 	TAG="true"
-	echo "Enter the source:" ; read SOURCE
-	echo "Enter the medium:" ; read MEDIUM
-	echo "Enter the content:" ; read CONTENT
-	echo "Enter the campaign:" ; read CAMPAIGN
+	printf "\nEnter the source: " ; read SOURCE
+	printf "Enter the medium: " ; read MEDIUM
+	printf "Enter the content: " ; read CONTENT
+	printf "Enter the campaign: " ; read CAMPAIGN
 	SOURCE="utm_source=$SOURCE"
 	MEDIUM="utm_medium=$MEDIUM"
 	CONTENT="utm_content=$CONTENT"
@@ -30,8 +30,8 @@ fi
 GLT=${GLT//&/\\&} # Escape the ampersands
 GLT=${GLT////\\/} # Escape slashes
 GLT=${GLT// /} # Remove spaces, just in case
-printf "\nAppend target=\"_blank\"? y/n\n" ; read ADDTARGETBLANK
-echo "Checking link structure..."
+printf "\nAppend target=\"_blank\"? y/n: " ; read ADDTARGETBLANK
+printf "\nChecking link structure...\n"
 find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^?#\"]*\)\(#[^\"]*\)*\(?[^\"]*\)\"/a\1href=\"\2\4\3\"/g" {} + # Move all section IDs to the end of their links
 if [[ "$TAG" = "true" ]]
 	then
