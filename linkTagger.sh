@@ -6,7 +6,7 @@
 # Oh, and you might as well set up an alias to run this: "alias glt='absolute/path/to/script/linkTagger.sh'" or something
 
 MYPATH="/cygdrive/c/users/david.davidson/desktop/filesToTag"
-printf "\nType n to build new GLT, or e to paste in existing GLT: " # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
+printf "Type n to build new GLT, or e to paste in existing GLT: " # If you enter nothing, it'll just make sure that all section IDs are at the very end of URLs and, if you want, add target="_blank"
 read MODE
 if [[ "$MODE" = "e" || "$MODE" = "E" ]]
 	then
@@ -29,21 +29,23 @@ elif [[ "$MODE" = "n" || "$MODE" = "N" ]]
 fi
 GLT=${GLT//&/\\&} # Escape the ampersands
 GLT=${GLT////\\/} # Escape slashes
-GLT=${GLT// /} # Remove spaces, just in case
+GLT=${GLT//\"/} # Remove quotation marks
+GLT=${GLT//\'/} # Remove single quotation marks
+GLT=${GLT// /} # Remove spaces (lol wut?)
 printf "\nAppend target=\"_blank\"? y/n: " ; read ADDTARGETBLANK
-printf "\nChecking link structure...\n"
+printf "\nChecking link structure..."
 find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^?#\"]*\)\(#[^\"]*\)*\(?[^\"]*\)\"/a\1href=\"\2\4\3\"/g" {} + # Move all section IDs to the end of their links
 if [[ "$TAG" = "true" ]]
 	then
-	echo "Tagging links..."
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^?#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2?$GLT\3\"/g" {} + # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
+	printf "\nTagging links"
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^?#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2?$GLT\3\"/g" {} + ; printf "." # Tag all the links that don't include "?"; introduce the GLT with "?"; if there's a section ID, keep it at the end
 	find "$MYPATH" -type f -exec \sed -i "s/href=\"\([^\"]*utm_[^\"]*\)\"/href= \"\1\"/g" {} + # What about links that include "?" but don't include GLT? sed doesn't support negative lookahead, so we'll "comment out" tagged links by adding a space after href=, which we'll later remove...
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2\&$GLT\3\"/g" {} + # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
-	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + # ...and remove that space after "href="
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^#\"]*\)\(#[^\"]*\)*\"/a\1href=\"\2\&$GLT\3\"/g" {} + ; printf "." # ...tag remaining links, which (1) don't have any GLT and (2) include "?" (so we introduce the GLT with "&")...
+	find "$MYPATH" -type f -exec \sed -i "s/href= \"\([^\"]*utm_[^\"]*\)\"/href=\"\1\"/g" {} + ; printf "." # ...and remove that space after "href="
 fi
 if [[ "$ADDTARGETBLANK" = "y" || "$ADDTARGETBLANK" = "Y" ]]
 	then
-	echo "Adding target=\"_blank\"..."
-	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\([^\"]*\)\">/a\1href=\"\2\" target=\"_blank\">/g" {} + # Append target="_blank"
+	printf "\nAdding target=\"_blank\"...\n"
+	find "$MYPATH" -type f -exec \sed -i "s/a\(.*\?\)href=\"\(.*\?http[^\"]*\)\">/a\1href=\"\2\" target=\"_blank\">/g" {} + # Append target="_blank"
 fi
 printf "\nDone! Click back to your file(s), and reload if prompted.\n"
