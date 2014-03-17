@@ -1,5 +1,4 @@
 <!-- These aren't regular hyperlinks; they shouldn't change at all -->
-<link href="styles.css" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro|Montserrat" rel="stylesheet" type="text/css">
 
 Lorem ipsum <!-- the following link should be tagged normally; note that it has a class, which should be left undisturbed --> <a class="firstClass" href="http://www.demo.com/">dolor</a> sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
@@ -8,4 +7,6 @@ Ut labore et <!-- This previously tagged link shouldn't change (unless, of cours
 
 Nisi ut <!-- We should put "benefits" at the end, but add no new tagging --> <a href="http://www.demo.com/#benefits?utm_source=somewhere">aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
 
-Esse <!-- Trickiest: we'll want the class, ID, and "href=[URL]", then "?page=1&type=search", then the GLT (preceded by "&"), and finally "#benefits" at the end --> <a class="secondClass" id="important" href="http://www.demo.com/#benefits?page=1&type=search">cillum</a> dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Esse <!-- These are internal links; they shouldn't change --><a href="#contact">cillum</a> dolore eu <a href="../">fugiat</a> nulla pariatur. 
+
+Excepteur sint <!-- Trickiest: we'll want the class, ID, and "href=[URL]", then "?page=1&type=search", then the GLT (preceded by "&"), and finally "#benefits" at the end --> <a class="secondClass" id="important" href="http://www.demo.com/#benefits?page=1&type=search">occaecat</a> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
