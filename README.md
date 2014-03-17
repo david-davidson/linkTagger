@@ -1,9 +1,9 @@
 linkTagger.sh
 =============
 
-####Tag all your links at once
+###Tag all your links at once!
 
-This shell script makes tagging links faster&mdash;way faster. It uses sed, the regular expression&ndash;powered stream editor, to tag all the links in all the files in the directory of your choice. Just copy the files (or whole directories) you want to tag into your tagging directory, and then run linkTagger.sh from your Linux or Cygwin terminal. The script will prompt you for GLT parameters (or preexisting GLT) and take it from there!
+This shell script makes tagging links faster&mdash;way faster. It uses sed, the regular expression&ndash;powered stream editor, to tag all the links in all the files in the directory of your choice. Just copy the files (or whole directories) you want to tag into your tagging directory, and then run linkTagger.sh from your Linux or Cygwin terminal&mdash;the script will prompt you for GLT parameters (or preexisting GLT) and take it from there!
 
 linkTagger knows:
 * To add GLT before section IDs, not after
