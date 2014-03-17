@@ -11,8 +11,9 @@ This shell script makes link tagging faster&mdash;way faster. It uses sed, the r
 * To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows other link parameters that are already set off by a question&nbsp;mark
 * Not to tag links that are already tagged
 * Not to tag nonanchor links, like those to a stylesheet or a typeface&nbsp;provider
+* Not to tag internal links, like <code>href="#contact"</code>
 
-That is, it&rsquo;ll tag, say, this: 
+It&rsquo;ll tag, say, this: 
 `<a href="http://www.test.com#contact?siteid=a">`
 
 Like this: 
