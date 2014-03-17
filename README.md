@@ -7,15 +7,14 @@ This shell script makes tagging links faster&mdash;way faster. It uses sed, the 
 
 linkTagger knows:
 * To add GLT before section IDs, not after
-* To fix previously tagged links that put a section ID in the middle of the URL, not at the end
-* To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows non-GLT parameters that are already set off by a question&nbsp;mark
+* To fix previously tagged links that put a section ID anywhere but the very end of the&nbsp;URL
+* To introduce GLT with &ldquo;&&rdquo;, not &ldquo;?&rdquo;, when it follows other link parameters that are already set off by a question&nbsp;mark
 * Not to tag links that are already tagged
-* Not to tag nonanchor links (like those to a stylesheet or a typeface&nbsp;provider)
-* To add target="_blank"&mdash;but only after asking!
+* Not to tag nonanchor links, like those to a stylesheet or a typeface&nbsp;provider
 
 That is, it&rsquo;ll tag, say, this: 
-`<a href="http://www.test.com#contact?p=home">`
+`<a href="http://www.test.com#contact?siteid=a">`
 
 Like this: 
-`<a href="http://www.test.com?p=home&utm_source=var1&utm_medium=var2`
-`&utm_content=var3&utm_campaign=var4#contact" target="_blank">`
+`<a href="http://www.test.com?siteid=a&utm_source=var1&utm_medium=var2`
+`&utm_content=var3&utm_campaign=var4#contact">`
